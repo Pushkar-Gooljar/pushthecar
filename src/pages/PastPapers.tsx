@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import  { useState } from "react";
 import PaperSelector from "@/components/pastpapers/PaperSelector"; // Adjust path if needed
 import { FileText } from "lucide-react";
 
@@ -23,6 +23,17 @@ export default function PastPapers() {
         }
     };
 
+    // Instantly swap the currently loaded PDF if the toggle changes
+    const handleTypeChange = (type: "qp" | "ms") => {
+        if (pdfUrl) {
+            if (type === "ms") {
+                setPdfUrl(pdfUrl.replace("_qp_", "_ms_"));
+            } else {
+                setPdfUrl(pdfUrl.replace("_ms_", "_qp_"));
+            }
+        }
+    };
+
     return (
         <div className="min-h-screen bg-background text-foreground flex flex-col p-4">
             {/* Main Layout - Full Screen minus padding */}
@@ -30,14 +41,14 @@ export default function PastPapers() {
 
                 {/* Left Column: Selector */}
                 <section className="w-full lg:w-[400px] xl:w-[450px] shrink-0 overflow-y-auto pb-4 scrollbar-hide">
-                    <PaperSelector onOpen={handleOpenPaper} />
+                    <PaperSelector onOpen={handleOpenPaper} onTypeChange={handleTypeChange} />
                 </section>
 
                 {/* Right Column: PDF Embed (Hidden on mobile/tablet) */}
                 <section className="hidden lg:flex flex-1 rounded-xl border bg-muted/30 overflow-hidden relative shadow-inner">
                     {pdfUrl ? (
                         <iframe
-                            src={`${pdfUrl}`}
+                            src={pdfUrl} // Removed #toolbar=0 to show default PDF tools
                             className="w-full h-full border-0"
                             title="PDF Viewer"
                             allowFullScreen

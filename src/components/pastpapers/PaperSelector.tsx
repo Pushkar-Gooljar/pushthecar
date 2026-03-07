@@ -25,9 +25,9 @@ const HARDCODED_SYLLABUSES = [
 ];
 
 const SERIES_MAP: Record<string, string> = {
-    m: "March (m)",
-    s: "June (s)",
-    w: "November (w)",
+    m: "M",
+    s: "S",
+    w: "W",
 };
 
 const BASE_URL = "https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/";
