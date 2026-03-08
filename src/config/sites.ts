@@ -35,6 +35,15 @@ export const sites: Site[] = [
         emoji: "🗺️",
     },
     {
+        name: "Past Papers",
+        url: "https://pushthecar.com/pastpapers",
+        description:
+            "Past paper and mark scheme viewer",
+        tags: ["Past papers", "Mark Schemes", "PDF Viewer"],
+        emoji: "📄",
+
+    },
+    {
         name: "Xtra",
         url: "https://xtra.base.com",
         description: "Miscellaneous projects, experiments, and extras.",
