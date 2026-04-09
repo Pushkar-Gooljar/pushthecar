@@ -145,7 +145,7 @@ export default function Doomsday() {
 
   const getSelectedPapers = useMemo(() => {
     const papers = new Set<string>();
-    
+
     // EGP is obligatory
     papers.add('8021*-12');
     papers.add('8021*-22');
@@ -163,7 +163,7 @@ export default function Doomsday() {
       alevel.subjects.forEach(subjName => {
         const subjData = data.find(d => d.subject === subjName);
         if (!subjData) return;
-        
+
         if (subjName === 'Maths') {
           const mOption = MATHS_OPTIONS.find(mo => mo.id === selectedMathsOption);
           mOption?.papers.forEach(p => papers.add(`${subjData.code}-${p}`));
@@ -206,7 +206,7 @@ export default function Doomsday() {
 
   const processedExams = useMemo(() => {
     const subjectPriority: Record<string, number> = {};
-    
+
     // A Level combination subjects first
     const alevel = ALEvelOptions.find(o => o.id === selectedALevel);
     if (alevel) {
@@ -248,7 +248,7 @@ export default function Doomsday() {
 
     const active = sorted.filter((e) => !e.isPast);
     const past = sorted.filter((e) => e.isPast);
-    
+
     // Countdown logic
     let targetExam: SelectedExam | undefined;
     if (countdownMode === 'earliest') {
@@ -264,7 +264,7 @@ export default function Doomsday() {
 
   const countdown = useMemo(() => {
     if (!processedExams.targetExam || processedExams.targetExam.isPast) return null;
-    
+
     const diff = processedExams.targetExam.timestamp - now;
     if (diff <= 0) return "TIME'S UP";
 
@@ -355,16 +355,25 @@ export default function Doomsday() {
           <div>
             <h1 className="text-5xl font-black italic tracking-tighter leading-none mb-1">DOOMSDAY</h1>
           </div>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl text-[10px] font-black uppercase tracking-widest h-9">
+              <span className="opacity-60">Countdown</span>
+              <button
+                onClick={() => setShowCountdown(!showCountdown)}
+                className={`w-8 h-4 rounded-full relative transition-colors ${showCountdown ? 'bg-primary' : 'bg-gray-200 dark:bg-gray-800'}`}
+              >
+                <div className={`absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white transition-transform ${showCountdown ? 'translate-x-4' : ''}`} />
+              </button>
+            </div>
             <button
               onClick={copyToClipboard}
-              className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold text-sm transition-all active:scale-95"
+              className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-bold text-sm transition-all active:scale-95 h-9"
             >
               {copied ? 'Copied!' : 'Copy Link'}
             </button>
             <button
               onClick={() => setIsSelecting(!isSelecting)}
-              className="px-6 py-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-xl font-black text-sm transition-all active:scale-95"
+              className="px-6 py-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-xl font-black text-sm transition-all active:scale-95 h-9 whitespace-nowrap"
             >
               {isSelecting ? 'Save Changes' : 'Update Subjects'}
             </button>
@@ -444,16 +453,6 @@ export default function Doomsday() {
               >
                 <Group size={14} /> Group Subject
               </button>
-
-              <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl text-xs font-black uppercase tracking-widest">
-                <span className="opacity-60">Countdown</span>
-                <button 
-                  onClick={() => setShowCountdown(!showCountdown)}
-                  className={`w-10 h-5 rounded-full relative transition-colors ${showCountdown ? 'bg-primary' : 'bg-gray-200 dark:bg-gray-800'}`}
-                >
-                  <div className={`absolute top-1 left-1 w-3 h-3 rounded-full bg-white transition-transform ${showCountdown ? 'translate-x-5' : ''}`} />
-                </button>
-              </div>
             </div>
 
             {selectedExams.length === 0 ? (
