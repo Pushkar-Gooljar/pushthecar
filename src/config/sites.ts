@@ -44,6 +44,13 @@ export const sites: Site[] = [
 
     },
     {
+        name: "Doomsday",
+        url: "/doomsday",
+        description: "View your exam dates and count down to the end.",
+        tags: ["Tools", "Exams", "Timetable"],
+        emoji: "🗓️",
+    },
+    {
         name: "Xtra",
         url: "https://xtra.base.com",
         description: "Miscellaneous projects, experiments, and extras.",

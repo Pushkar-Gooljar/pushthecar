@@ -1,0 +1,188 @@
+[
+  {
+    "subject": "Maths",
+    "code": "9709",
+    "exams": [
+      {
+        "paper": "12",
+        "day": "WED",
+        "date": "30/09/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "32",
+        "day": "THU",
+        "date": "15/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "52",
+        "day": "WED",
+        "date": "07/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "42",
+        "day": "TUE",
+        "date": "13/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "62",
+        "day": "TUE",
+        "date": "13/10/2026",
+        "time": "PM"
+      }
+    ]
+  },
+  {
+    "subject": "Physics",
+    "code": "9702",
+    "exams": [
+      {
+        "paper": "12",
+        "day": "TUE",
+        "date": "10/11/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "22",
+        "day": "WED",
+        "date": "14/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "33",
+        "day": "THU",
+        "date": "08/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "42",
+        "day": "MON",
+        "date": "12/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "52",
+        "day": "WED",
+        "date": "14/10/2026",
+        "time": "PM"
+      }
+    ]
+  },
+  {
+    "subject": "Chemistry",
+    "code": "9701",
+    "exams": [
+      {
+        "paper": "12",
+        "day": "FRI",
+        "date": "13/11/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "22",
+        "day": "FRI",
+        "date": "09/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "33",
+        "day": "TUE",
+        "date": "29/09/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "42",
+        "day": "FRI",
+        "date": "16/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "52",
+        "day": "FRI",
+        "date": "09/10/2026",
+        "time": "PM"
+      }
+    ]
+  },
+  {
+    "subject": "Computer",
+    "code": "9618",
+    "exams": [
+      {
+        "paper": "12",
+        "day": "FRI",
+        "date": "09/10/2026",
+        "time": "AM"
+      },
+      {
+        "paper": "22",
+        "day": "WED",
+        "date": "14/10/2026",
+        "time": "AM"
+      },
+      {
+        "paper": "32",
+        "day": "TUE",
+        "date": "20/10/2026",
+        "time": "AM"
+      }
+    ]
+  },
+  {
+    "subject": "Biology",
+    "code": "9700",
+    "exams": [
+      {
+        "paper": "12",
+        "day": "THU",
+        "date": "12/11/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "22",
+        "day": "TUE",
+        "date": "20/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "33",
+        "day": "TUE",
+        "date": "06/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "42",
+        "day": "FRI",
+        "date": "23/10/2026",
+        "time": "PM"
+      },
+      {
+        "paper": "52",
+        "day": "TUE",
+        "date": "20/10/2026",
+        "time": "PM"
+      }
+    ]
+  },
+  {
+    "subject": "EGP",
+    "code": "8021*",
+    "exams": [
+      {
+        "paper": "12",
+        "day": "MON",
+        "date": "28/09/2026",
+        "time": "AM"
+      },
+      {
+        "paper": "22",
+        "day": "WED",
+        "date": "30/09/2026",
+        "time": "AM"
+      }
+    ]
+  }
+]
