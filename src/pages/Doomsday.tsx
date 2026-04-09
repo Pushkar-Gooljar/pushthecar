@@ -7,6 +7,7 @@ interface Exam {
   day: string;
   date: string;
   time: string;
+  duration: number;
 }
 
 interface SubjectData {
@@ -22,6 +23,7 @@ interface SelectedExam extends Exam {
   timestamp: number;
   formattedDate: string;
   formattedTime: string;
+  formattedEndTime: string;
   isPast: boolean;
 }
 
@@ -53,7 +55,24 @@ const formatDate = (dateStr: string) => {
 };
 
 const formatTime = (timeStr: string) => {
-  return timeStr === 'AM' ? '8:00' : '12:00';
+  return timeStr === 'AM' ? '08:00' : '12:00';
+};
+
+const formatEndTime = (timeStr: string, durationMinutes: number) => {
+  const startHour = timeStr === 'AM' ? 8 : 12;
+  const startMinutes = 0;
+  const totalMinutes = startMinutes + durationMinutes;
+  const endHour = startHour + Math.floor(totalMinutes / 60);
+  const endMinutes = totalMinutes % 60;
+  return `${endHour.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
+};
+
+const formatDuration = (minutes: number) => {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  if (h > 0 && m > 0) return `${h}h ${m}m`;
+  if (h > 0) return `${h}h`;
+  return `${m}m`;
 };
 
 const ALEvelOptions = [
@@ -193,6 +212,7 @@ export default function Doomsday() {
           timestamp,
           formattedDate: formatDate(exam.date),
           formattedTime: formatTime(exam.time),
+          formattedEndTime: formatEndTime(exam.time, exam.duration),
           isPast: timestamp < today,
         });
       });
@@ -301,10 +321,15 @@ export default function Doomsday() {
           <span className="font-bold text-base">{exam.subject}</span>
           <span className="text-xs opacity-60 font-medium">{exam.code}/{exam.paper}</span>
         </div>
+        <div className="text-xs opacity-60 font-medium">
+          {formatDuration(exam.duration)} duration
+        </div>
       </div>
       <div className="flex items-center gap-4 text-right">
         <span className="font-bold text-sm">{exam.formattedDate}</span>
-        <span className="text-xs font-bold w-12">{exam.formattedTime}</span>
+        <div className="flex flex-col items-end min-w-16">
+          <span className="text-xs font-bold leading-none">{exam.formattedTime} - {exam.formattedEndTime}</span>
+        </div>
       </div>
     </div>
   );
