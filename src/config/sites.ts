@@ -51,6 +51,20 @@ export const sites: Site[] = [
         emoji: "🗓️",
     },
     {
+        name: "Essay Ranking",
+        url: "/essay-ranking",
+        description: "Rank and prioritize essay topics from past papers.",
+        tags: ["Tools", "Essay", "Ranking"],
+        emoji: "✍️",
+    },
+    {
+        name: "MCQ Viewer",
+        url: "/mcq-viewer",
+        description: "Search for past-paper questions by ID and view the question image and answer.",
+        tags: ["Tools", "Physics", "MCQ", "9702"],
+        emoji: "🔍",
+    },
+    {
         name: "Xtra",
         url: "https://xtra.base.com",
         description: "Miscellaneous projects, experiments, and extras.",

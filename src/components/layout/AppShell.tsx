@@ -2,15 +2,19 @@ import { Outlet, NavLink, useParams } from "react-router-dom";
 import { SUBJECTS } from "../../lib/subjects";
 import { cn } from "../../lib/utils";
 import { BookOpen } from "lucide-react";
+import { ModeToggle } from "../mode-toggle";
 
 export default function AppShell() {
     return (
-        <div className="flex min-h-screen bg-background">
+        <div className="flex min-h-screen bg-background text-foreground">
             {/* Sidebar */}
             <aside className="w-56 shrink-0 border-r border-border flex flex-col py-6 px-3 gap-1">
-                <div className="flex items-center gap-2 px-3 mb-6">
-                    <BookOpen className="h-5 w-5 text-primary" />
-                    <span className="font-semibold text-sm tracking-tight">RevisionHub</span>
+                <div className="flex items-center justify-between px-3 mb-6">
+                    <div className="flex items-center gap-2">
+                        <BookOpen className="h-5 w-5 text-primary" />
+                        <span className="font-semibold text-sm tracking-tight">RevisionHub</span>
+                    </div>
+                    <ModeToggle />
                 </div>
 
                 <p className="px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">

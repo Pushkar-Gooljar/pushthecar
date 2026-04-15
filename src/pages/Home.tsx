@@ -1,11 +1,15 @@
 import {sites} from "@/config/sites.ts";
 import {SiteCard} from "@/components/index/SiteCard.tsx";
 import {Footer} from "@/components/index/Footer.tsx";
+import {ModeToggle} from "@/components/mode-toggle.tsx";
 
 export default function Home() {
     return (
         <div className="min-h-screen flex flex-col bg-background text-foreground">
-            <header className="container mx-auto max-w-4xl px-6 pt-20 pb-12 text-center">
+            <header className="container mx-auto max-w-4xl px-6 pt-10 pb-12 relative text-center">
+                <div className="absolute right-6 top-6">
+                    <ModeToggle />
+                </div>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
                     PG
                 </h1>
