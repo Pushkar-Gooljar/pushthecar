@@ -126,39 +126,37 @@ const MCQViewer: React.FC = () => {
     
     setCopyStatus('copying');
     try {
-      const response = await fetch(searchResult.imgUrl);
-      const blob = await response.blob();
-      const canvas = document.createElement('canvas');
       const img = imgRef.current;
-      
+      const canvas = document.createElement('canvas');
       canvas.width = img.naturalWidth;
       canvas.height = img.naturalHeight;
       const ctx = canvas.getContext('2d');
       
-      if (ctx) {
-        // Apply white background if it's transparent, then draw image
-        // To handle dark:invert, we need to decide if we copy the inverted or original
-        // Usually, people want the original (black on white) when copying
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0);
-        canvas.toBlob(async (pngBlob) => {
-          if (pngBlob) {
-            try {
-              const item = new ClipboardItem({ 'image/png': pngBlob });
-              await navigator.clipboard.write([item]);
-              setCopyStatus('success');
-              setTimeout(() => setCopyStatus('idle'), 2000);
-            } catch (err) {
-              console.error('Clipboard error:', err);
-              setCopyStatus('error');
-            }
-          }
+      if (!ctx) throw new Error('Could not get canvas context');
+
+      // Apply white background then draw image
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+
+      // Safari requires navigator.clipboard.write to be called inside a user gesture
+      // Using a Promise for the ClipboardItem blob is the most robust way
+      const promise = new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob((blob) => {
+          if (blob) resolve(blob);
+          else reject(new Error('Canvas toBlob failed'));
         }, 'image/png');
-      }
+      });
+
+      const item = new ClipboardItem({ 'image/png': promise });
+      await navigator.clipboard.write([item]);
+      
+      setCopyStatus('success');
+      setTimeout(() => setCopyStatus('idle'), 2000);
     } catch (err) {
       console.error('Copy error:', err);
       setCopyStatus('error');
+      setTimeout(() => setCopyStatus('idle'), 3000);
     }
   };
 
