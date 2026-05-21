@@ -25,22 +25,25 @@ export default function PastPapers() {
         return pdfUrl.replace("_ms_", "_qp_");
     }, [pdfUrl]);
 
+    // const handleOpenPaper = (fullUrl: string) => {
+    //     // Detect mobile, iPad, or screens smaller than standard desktop (1024px)
+    //     const isMobileOrTablet =
+    //         window.innerWidth < 1024 ||
+    //         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    //         (navigator.maxTouchPoints && navigator.maxTouchPoints > 2); // Catches modern iPads
+    //
+    //     if (isMobileOrTablet) {
+    //         // Open in new tab on mobile/tablet
+    //         window.open(fullUrl, "_blank", "noopener,noreferrer");
+    //     } else {
+    //         // Embed on desktop
+    //         setPdfUrl(fullUrl);
+    //     }
+    // };
     const handleOpenPaper = (fullUrl: string) => {
-        // Detect mobile, iPad, or screens smaller than standard desktop (1024px)
-        const isMobileOrTablet =
-            window.innerWidth < 1024 ||
-            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-            (navigator.maxTouchPoints && navigator.maxTouchPoints > 2); // Catches modern iPads
-
-        if (isMobileOrTablet) {
-            // Open in new tab on mobile/tablet
-            window.open(fullUrl, "_blank", "noopener,noreferrer");
-        } else {
-            // Embed on desktop
-            setPdfUrl(fullUrl);
-        }
+        // Always open in a new tab (works around X-Frame-Options: DENY)
+        window.open(fullUrl, "_blank", "noopener,noreferrer");
     };
-
     // Instantly swap the currently loaded PDF if the toggle changes
     const handleTypeChange = (type: "qp" | "ms") => {
         if (pdfUrl) {
@@ -161,7 +164,7 @@ export default function PastPapers() {
                         </div>
                     ) : (
                         <div className="flex-1 rounded-xl border bg-muted/30 overflow-hidden relative shadow-inner">
-                            <iframe
+                            <embed
                                 src={pdfUrl}
                                 className="w-full h-full border-0"
                                 title="PDF Viewer"

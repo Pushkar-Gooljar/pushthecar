@@ -1,8 +1,20 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -30,7 +42,9 @@ const SERIES_MAP: Record<string, string> = {
     w: "W",
 };
 
-const BASE_URL = "https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/";
+// NEW: CDN root + level path
+const CDN_ROOT = "https://papers.xtremepape.rs";
+const LEVEL_PATH = "CAIE/AS%20and%20A%20Level";
 
 interface PaperSelectorProps {
     onOpen: (filename: string) => void;
@@ -72,18 +86,24 @@ export default function PaperSelector({ onOpen, onTypeChange }: PaperSelectorPro
     // Reset cascading states handlers
     const handleSyllabusChange = (val: string) => {
         setSyllabus(val);
-        setYear(""); setSeries(""); setPaper(""); setFile("");
+        setYear("");
+        setSeries("");
+        setPaper("");
+        setFile("");
         setData(null);
     };
 
     const handleYearChange = (val: string) => {
         setYear(val);
-        setSeries(""); setPaper(""); setFile("");
+        setSeries("");
+        setPaper("");
+        setFile("");
     };
 
     const handleSeriesChange = (val: string) => {
         setSeries(val);
-        setPaper(""); setFile("");
+        setPaper("");
+        setFile("");
     };
 
     const handlePaperChange = (val: string) => {
@@ -97,14 +117,13 @@ export default function PaperSelector({ onOpen, onTypeChange }: PaperSelectorPro
     };
 
     // Extract available options. Sort years descending (newest first).
-    const availableYears = data
-        ? Object.keys(data).sort((a, b) => Number(b) - Number(a))
-        : [];
+    const availableYears = data ? Object.keys(data).sort((a, b) => Number(b) - Number(a)) : [];
 
     const isYearValid = data && data[year];
     const availableSeries = isYearValid ? Object.keys(data[year]) : [];
     const availablePapers = isYearValid && data[year][series] ? Object.keys(data[year][series]) : [];
-    const availableFiles = isYearValid && data[year][series] && data[year][series][paper] ? data[year][series][paper] : [];
+    const availableFiles =
+        isYearValid && data[year][series] && data[year][series][paper] ? data[year][series][paper] : [];
 
     // Helper to extract the variant number
     const getVariantNumber = (filename: string) => {
@@ -112,15 +131,31 @@ export default function PaperSelector({ onOpen, onTypeChange }: PaperSelectorPro
         return match ? match[1] : "?";
     };
 
+    // NEW: build the base URL from the selected syllabus (code -> subject name)
+    const getBaseUrlForSyllabus = (code: string) => {
+        const subject = HARDCODED_SYLLABUSES.find((s) => s.code === code);
+        if (!subject) return "";
+
+        // e.g. "Physics (9702)" then URL-encode it to match ".../Physics%20(9702)/"
+        const folderName = `${subject.name} (${subject.code})`;
+        const encodedFolder = encodeURIComponent(folderName);
+
+        return `${CDN_ROOT}/${LEVEL_PATH}/${encodedFolder}/`;
+    };
+
     const handleOpenClick = () => {
         if (!file) return;
+
+        const baseUrl = getBaseUrlForSyllabus(syllabus);
+        if (!baseUrl) return;
 
         let finalFilename = file;
         if (docType === "ms") {
             finalFilename = finalFilename.replace("_qp_", "_ms_");
         }
 
-        onOpen(`${BASE_URL}${finalFilename}`);
+        // NEW: open from xtremepape CDN instead of papacambridge
+        onOpen(`${baseUrl}${finalFilename}`);
     };
 
     return (
@@ -131,7 +166,6 @@ export default function PaperSelector({ onOpen, onTypeChange }: PaperSelectorPro
             </CardHeader>
 
             <CardContent className="space-y-6">
-
                 {/* 1. SYLLABUS (Dropdown) */}
                 <div className="space-y-2">
                     <Label>Syllabus</Label>
@@ -237,7 +271,6 @@ export default function PaperSelector({ onOpen, onTypeChange }: PaperSelectorPro
                         onValueChange={(val: "qp" | "ms") => handleTypeChange(val)}
                         className="flex gap-2"
                     >
-                        {/* Question Paper Label/Block */}
                         <div className="flex-1">
                             <RadioGroupItem value="qp" id="qp" className="peer sr-only" />
                             <Label
@@ -248,7 +281,6 @@ export default function PaperSelector({ onOpen, onTypeChange }: PaperSelectorPro
                             </Label>
                         </div>
 
-                        {/* Mark Scheme Label/Block */}
                         <div className="flex-1">
                             <RadioGroupItem value="ms" id="ms" className="peer sr-only" />
                             <Label
@@ -262,12 +294,7 @@ export default function PaperSelector({ onOpen, onTypeChange }: PaperSelectorPro
                 </div>
 
                 {/* SUBMIT BUTTON */}
-                <Button
-                    className="w-full cursor-pointer"
-                    size="lg"
-                    disabled={!file}
-                    onClick={handleOpenClick}
-                >
+                <Button className="w-full cursor-pointer" size="lg" disabled={!file} onClick={handleOpenClick}>
                     Open Document
                 </Button>
             </CardContent>
