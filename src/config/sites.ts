@@ -65,6 +65,13 @@ export const sites: Site[] = [
         emoji: "🔍",
     },
     {
+        name: "MCQ Daily Practice",
+        url: "/mcq-daily-practice",
+        description: "Download difficult MCQ worksheets to practice daily. (20 questions per worksheet)",
+        tags: ["Chemistry", "Physics", "MCQ", "9702", "9701"],
+        emoji: "📝",
+    },
+    {
         name: "Xtra",
         url: "https://xtra.base.com",
         description: "Miscellaneous projects, experiments, and extras.",

@@ -6,6 +6,7 @@ import Battleship from "@/pages/Battleship.tsx";
 import EssayRanking from "@/pages/EssayRanking.tsx";
 import MCQViewer from "@/pages/MCQViewer.tsx";
 import {ThemeProvider} from "@/components/theme-provider.tsx";
+import DailyMcq from "@/components/DailyMcq.tsx";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/doomsday" element={<Doomsday/>}/>
                 <Route path="/essay-ranking" element={<EssayRanking/>}/>
                 <Route path="/mcq-viewer" element={<MCQViewer/>}/>
+                <Route path="/mcq-daily-practice" element={<DailyMcq/>}/>
             </Routes>
         </ThemeProvider>
     );
