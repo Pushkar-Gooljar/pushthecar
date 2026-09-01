@@ -34,6 +34,22 @@ export const sites: Site[] = [
         tags: ["Tool", "Chemistry", "A Level Chemistry", "9701"],
         emoji: "🗺️",
     },
+        {
+        name: "Chemwordle",
+        url: "https://chemwordle.pushthecar.com",
+        description:
+            "A Wordle type game. However you learn about organic synthesis. Making use of spaced repetition, the app ensures you always keep up with your past mistakes.",
+        tags: ["Tool", "Chemistry", "A Level Chemistry", "9701"],
+        emoji: "🗺️",
+    },
+        {
+        name: "Photoelectric Effect Demo",
+        url: "https://pushthecar.com/photoelectric",
+        description:
+            "An interactive demonstration of the photoelectric effect.",
+        tags: ["Tool", "Physics", "A Level Physics", "9702"],
+        emoji: "🔦",
+    },
     {
         name: "Past Papers",
         url: "https://pushthecar.com/pastpapers",
